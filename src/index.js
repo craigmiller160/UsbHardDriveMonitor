@@ -1,4 +1,5 @@
 const fs = require('fs');
+const terminal = require('terminal-overwrite');
 
 const pathToDir = '/home/craig/OtherDrive/New folder 1'
 const maxErrors = 20;
@@ -13,15 +14,24 @@ const checkDirAccess = () => {
 console.log('Running directory check');
 let counter = 0;
 
-const interval = setInterval(() => {
-	try {
-		checkDirAccess();
-	} catch (ex) {
-		counter++;
-		console.error(`Error at ${new Date()}: ${ex.message}`);
-		if (counter === maxErrors) {
-			clearInterval(interval);
-			console.error('Exceeded maximum errors, discontinuing execution');
-		}
+// const interval = setInterval(() => {
+// 	try {
+// 		checkDirAccess();
+// 	} catch (ex) {
+// 		counter++;
+// 		console.error(`Error at ${new Date()}: ${ex.message}`);
+// 		if (counter === maxErrors) {
+// 			clearInterval(interval);
+// 			console.error('Exceeded maximum errors, discontinuing execution');
+// 		}
+// 	}
+// }, 500);
+
+setInterval(() => {
+	terminal(`Counter: ${counter}`);
+	counter++;
+	if (counter % 5 === 0) {
+		terminal('Found');
+		terminal.done();
 	}
-}, 500);
+}, 1000);
