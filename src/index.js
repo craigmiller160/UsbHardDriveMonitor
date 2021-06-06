@@ -1,5 +1,6 @@
 const fs = require('fs');
 const terminal = require('terminal-overwrite');
+const { format } = require('date-fns');
 
 const pathToDir = '/home/craig/OtherDrive/New folder 1'
 const maxErrors = 20;
@@ -15,12 +16,13 @@ let counter = 0;
 
 const interval = setInterval(() => {
 	const date = new Date();
+	const dateString = format(date, 'yyyy-MM-dd\'T\'HH:mm:ss.SSS');
 	try {
-		terminal(`Checking directory access: ${date}`);
+		terminal(`Checking directory access: ${dateString}`);
 		checkDirAccess();
 	} catch (ex) {
 		counter++;
-		terminal.stderr(`Error at ${new Date()}: ${ex.message}`);
+		terminal.stderr(`Error at ${dateString}: ${ex.message}`);
 		terminal.done();
 		if (counter === maxErrors) {
 			clearInterval(interval);

@@ -9,6 +9,7 @@
     "start": "node src"
   },
   "dependencies": {
+    "date-fns": "^2.22.1",
     "terminal-overwrite": "^2.0.1"
   }
 }
